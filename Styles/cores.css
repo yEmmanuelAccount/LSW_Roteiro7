@@ -1,6 +1,7 @@
 :root {
-    --cor--fundo: #121212;
-    --cor--texto: #ffffff;
-    --cor--destaque: #7d3cff;
-    --cor--naoDestaque: #6932cc;
-}
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #2d2d2d;
+    --text-color: #c7bdbd;
+  }
+  
