@@ -1,0 +1,30 @@
+@import url('cores.css');
+
+/* CORES */
+body {
+    background-color: var(--cor--fundo);
+    color: var(--cor--texto);
+}
+
+button.is-primary {
+    background-color: var(--cor--destaque);
+    border: none;
+}
+
+button.is-primaty:hover {
+    background-color: var(--cor--naoDestaque);
+}
+
+/* INDEX */
+.section {
+    padding: 2rem;
+}
+
+h1.title {
+    text-align: center;
+    color: var(--cor--texto);
+}
+
+#ListaPartidas {
+    margin-top: 20px;
+}
