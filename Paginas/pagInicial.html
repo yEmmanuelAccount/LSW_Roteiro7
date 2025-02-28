@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" href="../Styles/cores.css">
   <link rel="stylesheet" href="../Styles/pagInicial.css">
-
   <title>Página Inicial</title>
 </head>
 <body>
   <header>
     <h1>Bem-vindo ao Site de Partidas</h1>
   </header>
-
   <section>
     <button id="criarPartidaBtn">Criar Partida</button>
   </section>
-
-    <!-- Lista de Partidas Criadas -->
-  <section id="listaPartidas">
+  <section id="formPartida" style="display: none;">
+    <h2>Nova Partida</h2>
+    <form id="partidaForm">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" required><br>
+      <label for="local">Local:</label>
+      <input type="text" id="local" name="local" required><br>
+      <label for="data">Data (AAAA-MM-DD):</label>
+      <input type="date" id="data" name="data" required><br>
+      <label for="horario">Horário (HH:MM):</label>
+      <input type="time" id="horario" name="horario" required><br>
+      <button type="submit">Salvar Partida</button>
+    </form>
   </section>
-
+  <section id="listaPartidas">
+    <!-- Lista de Partidas Criadas -->
+  </section>
   <script src="../JS/funcionalidades.js"></script>
-
 </body>
 </html>

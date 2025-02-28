@@ -1,24 +1,23 @@
 @import url('../Styles/cores.css');
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-  header {
-    background-color: var(--primary-color);
-    padding: 20px;
-    text-align: center;
-    color: white;
-  }
-  button {
-    background-color: var(--secondary-color);
-    border: none;
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: var(--primary-color);
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+header {
+  background-color: var(--primary-color);
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+button {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--primary-color);
+}

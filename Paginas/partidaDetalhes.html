@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="partidaDetalhe.css">
-  
+  <link rel="stylesheet" href="../Styles/cores.css">
+  <link rel="stylesheet" href="../Styles/partidaDetalhes.css">
   <title>Detalhes da Partida</title>
 </head>
 <body>
@@ -20,6 +19,29 @@
     <!-- Lista de Jogadores -->
   </section>
   <button id="excluirPartidaBtn">Excluir Partida</button>
-  <script src="funcionalidades.js"></script>
+  <script src="../JS/funcionalidades.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const partidaId = urlParams.get('id');
+      carregarDetalhesPartida(partidaId);
+    });
+
+    async function carregarDetalhesPartida(id) {
+      try {
+        const response = await fetch(`/api/partidas/${id}`);
+        const partida = await response.json();
+
+        const detalhesPartida = document.getElementById('detalhesPartida');
+        detalhesPartida.innerHTML = `
+          <h2>${partida.titulo}</h2>
+          <p>${partida.data} às ${partida.horario}</p>
+          <p>${partida.local}</p>
+        `;
+      } catch (error) {
+        alert('Erro ao carregar os detalhes da partida.');
+      }
+    }
+  </script>
 </body>
 </html>
