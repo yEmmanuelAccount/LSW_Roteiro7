@@ -1,0 +1,38 @@
+body {
+    background-color: #77797a;
+    color: black;
+}
+
+.form-control, .list-group-item {
+    background-color: #3e4143;
+    color: white;
+}
+
+#matchList {
+    width: 50%; /* Define uma largura */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    list-style: none; /* Remove os estilos padrão da lista */
+    padding: 0;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.match-options {
+    margin-top: 10px;
+}
+
+.match-options button {
+    margin-right: 5px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.container h1, .container h2 {
+    color: white;
+}

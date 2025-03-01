@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Partidas de Futebol</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Organizador de Partidas de Futebol</h1>
+        <div class="form-group">
+            <label for="matchTitle">Título da Partida:</label>
+            <input type="text" class="form-control" id="matchTitle">
+        </div>
+        <div class="form-group">
+            <label for="matchLocation">Local:</label>
+            <input type="text" class="form-control" id="matchLocation">
+        </div>
+        <div class="form-group">
+            <label for="matchDate">Data:</label>
+            <input type="date" class="form-control" id="matchDate">
+        </div>
+        <div class="form-group">
+            <label for="matchTime">Horário:</label>
+            <input type="time" class="form-control" id="matchTime">
+        </div>
+        <button id="createMatchButton" class="btn btn-primary">Criar Partida</button>
+        
+        <h2>Partidas Criadas</h2>
+        <div id="container">
+            <ul id="matchList" class="list-group"></ul>
+        </div>          
+    </div>
+
+    <!-- Adicionar Jogador -->
+    <div class="modal fade" id="addPlayerModal" tabindex="-1" role="dialog" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addPlayerModalLabel">Adicionar Jogador</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addPlayerForm">
+              <div class="form-group">
+                <label for="playerName">Nome do Jogador:</label>
+                <input type="text" class="form-control" id="playerName" required>
+              </div>
+              <div class="form-group">
+                <label for="playerPhone">Telefone:</label>
+                <input type="text" class="form-control" id="playerPhone" required>
+              </div>
+              <input type="hidden" id="matchIndexForPlayer">
+              <button type="submit" class="btn btn-primary">Adicionar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ver Jogadores -->
+    <div class="modal fade" id="viewPlayersModal" tabindex="-1" role="dialog" aria-labelledby="viewPlayersModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewPlayersModalLabel">Jogadores</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="playerList" class="list-group">
+              <!-- A lista de jogadores -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmar Exclusão de Partida -->
+    <div class="modal fade" id="confirmDeleteMatchModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteMatchModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteMatchModalLabel">Excluir Partida</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Tem certeza que deseja excluir esta partida?</p>
+            <input type="hidden" id="matchIndexToDelete">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="confirmDeleteMatchButton">Sim, excluir</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

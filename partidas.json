@@ -1,0 +1,22 @@
+[
+  {
+    "titulo": "Jogo do Leão",
+    "local": "Arena Futuro",
+    "data": "2025-03-01",
+    "horario": "16:00",
+    "jogadores": [
+      {
+        "nome": "jogador2",
+        "telefone": "22 22222-2222",
+        "presenca": true
+      }
+    ]
+  },
+  {
+    "titulo": "Jogo da Cobrinha",
+    "local": "Casa de Malia",
+    "data": "2025-03-01",
+    "horario": "20:00",
+    "jogadores": []
+  }
+]
