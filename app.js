@@ -131,7 +131,18 @@ function viewPlayers(index) {
             jogadores.forEach((jogador, playerIndex) => {
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.innerHTML = `<span>${jogador.nome} (${jogador.telefone}) ${jogador.presenca ? '- Presente' : ''}</span>`;
+                
+                // Cria um span para exibir o nome e telefone do jogador.
+                const nameSpan = document.createElement('span');
+                if(jogador.presenca) {
+                    // Se o jogador estiver presente, o nome é exibido em verde (classe text-success).
+                    nameSpan.className = 'text-success';
+                    nameSpan.textContent = `${jogador.nome} (${jogador.telefone}) - Presente`;
+                } else {
+                    nameSpan.textContent = `${jogador.nome} (${jogador.telefone})`;
+                }
+                li.appendChild(nameSpan);
+
                 const btnGroup = document.createElement('div');
                 // Botão verde para confirmar presença
                 const confirmBtn = document.createElement('button');
@@ -166,7 +177,7 @@ function confirmPresence(matchIndex, playerIndex) {
     .then(response => response.text())
     .then(data => {
         alert(data);
-        // Atualiza a lista de jogadores
+        // Atualiza a lista de jogadores para refletir a mudança
         viewPlayers(matchIndex);
     })
     .catch(error => console.error('Erro:', error));
@@ -180,7 +191,7 @@ function deletePlayer(matchIndex, playerIndex) {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            // Atualiza a lista de jogadores
+            // Atualiza a lista de jogadores para refletir a remoção
             viewPlayers(matchIndex);
         })
         .catch(error => console.error('Erro:', error));
