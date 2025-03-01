@@ -9,7 +9,7 @@ app.use(express.json());
 
 const filePath = path.join(__dirname, 'partidas.json');
 
-// Função para ler as partidas
+// Ler partidas
 function readPartidas() {
     let partidas = [];
     if (fs.existsSync(filePath)) {

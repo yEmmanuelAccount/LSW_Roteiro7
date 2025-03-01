@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Erro:', error));
     });
 
-    // Evento de submit do formulário de adicionar jogador
+    // Enviando o formulário para Adicionar Jogador
     document.querySelector('#addPlayerForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const index = document.querySelector('#matchIndexForPlayer').value;
@@ -48,14 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.text())
             .then(data => {
                 alert(data);
-                // Em vez de fechar o modal, atualizamos a lista de jogadores
                 viewPlayers(index);
             })
             .catch(error => console.error('Erro:', error));
         }
     });
 
-    // Evento de confirmação da exclusão de partida
+    // Confirmando a Exclusão de Partida
     document.querySelector('#confirmDeleteMatchButton').addEventListener('click', function() {
         const index = document.querySelector('#matchIndexToDelete').value;
         fetch(`http://localhost:3000/partidas/${index}`, {
@@ -64,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            // Não fechamos o modal; apenas atualizamos a lista de partidas
             fetchMatches();
         })
         .catch(error => console.error('Erro:', error));
@@ -92,7 +90,7 @@ function fetchMatches() {
                 </div>
             `;
 
-            // Evento para expandir/recolher opções
+            // Expandir e Recolher opções
             const toggleBtn = listItem.querySelector('.toggle-btn');
             toggleBtn.addEventListener('click', function() {
                 const optionsDiv = listItem.querySelector('.match-options');
@@ -108,12 +106,13 @@ function fetchMatches() {
 }
 
 function addPlayer(index) {
-    // Define o índice da partida no input oculto do modal
+    // Define o índice da partida
     document.querySelector('#matchIndexForPlayer').value = index;
+
     // Limpa os campos do formulário
     document.querySelector('#playerName').value = '';
     document.querySelector('#playerPhone').value = '';
-    // Abre o modal para adicionar jogador (o modal permanece aberto após a ação)
+
     $('#addPlayerModal').modal('show');
 }
 
@@ -133,10 +132,10 @@ function viewPlayers(index) {
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
                 
-                // Cria um span para exibir o nome e telefone do jogador.
+                // Cria um span para exibir o nome e telefone do jogador
                 const nameSpan = document.createElement('span');
                 if(jogador.presenca) {
-                    // Se o jogador estiver presente, o nome é exibido em verde (classe text-success).
+                    // Se o jogador estiver presente, o nome é exibido em verde (classe text-success)
                     nameSpan.className = 'text-success';
                     nameSpan.textContent = `${jogador.nome} (${jogador.telefone}) - Presente`;
                 } else {
@@ -145,14 +144,14 @@ function viewPlayers(index) {
                 li.appendChild(nameSpan);
 
                 const btnGroup = document.createElement('div');
-                // Botão verde para confirmar presença
+                // Botão para confirmar presença
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'btn btn-success btn-sm';
                 confirmBtn.textContent = 'Confirmar Presença';
                 confirmBtn.addEventListener('click', function() {
                     confirmPresence(index, playerIndex);
                 });
-                // Botão vermelho para excluir jogador
+                // Botão para excluir jogador
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'btn btn-danger btn-sm ml-2';
                 deleteBtn.textContent = 'Excluir';
@@ -165,7 +164,7 @@ function viewPlayers(index) {
                 playerList.appendChild(li);
             });
         }
-        // Abre (ou mantém) o modal de jogadores aberto
+
         $('#viewPlayersModal').modal('show');
     })
     .catch(error => console.error('Erro:', error));
@@ -178,7 +177,7 @@ function confirmPresence(matchIndex, playerIndex) {
     .then(response => response.text())
     .then(data => {
         alert(data);
-        // Atualiza a lista de jogadores para refletir a mudança, sem fechar o modal
+        
         viewPlayers(matchIndex);
     })
     .catch(error => console.error('Erro:', error));
@@ -192,7 +191,7 @@ function deletePlayer(matchIndex, playerIndex) {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            // Atualiza a lista de jogadores para refletir a remoção, mantendo o modal aberto
+            
             viewPlayers(matchIndex);
         })
         .catch(error => console.error('Erro:', error));
@@ -201,6 +200,6 @@ function deletePlayer(matchIndex, playerIndex) {
 
 function deleteMatch(index) {
     document.querySelector('#matchIndexToDelete').value = index;
-    // Exibe o modal de confirmação de exclusão, que permanecerá aberto após a ação
+    
     $('#confirmDeleteMatchModal').modal('show');
 }

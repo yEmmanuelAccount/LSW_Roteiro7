@@ -10,7 +10,7 @@ de futebol entre amigos.
 1. Criar partidas: Cada partida deve ter um título, um local, data e horário.
 2. Criar lista de presença dos jogadores: Após criar a partida, deve ser permitido adicionar/remover uma lista com os participantes e um telefone para contato.
 3. Acompanhar a presença: Essa funcionalidade será usada para "confirmar" quem vai estar presente no dia da partida marcada. Deverá ser apresentada a lista dos jogadores com uma opção para confirmar sua presença.
-- Excluir partida. Deve ser permitido excluir a partida.
+4. Excluir partida. Deve ser permitido excluir a partida.
 
 ## Módulos
 
