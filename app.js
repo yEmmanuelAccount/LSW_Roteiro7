@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            fetchMatches(); // Atualiza a lista de partidas
+            fetchMatches(); 
         })
         .catch(error => console.error('Erro:', error));
     });

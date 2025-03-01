@@ -1,4 +1,17 @@
 body {
-    background-color: #3e4143;
-    color: white;
+    background-color: #77797a;
+    color: black;
 }
+
+.form-control, .list-group {
+    background-color: #3e4143;
+    color: black;
+}
+
+#matchList {
+    width: 50%; /* Define uma largura */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    list-style: none; /* Remove os estilos padrão da lista */
+    padding: 0;
+  }
+  
