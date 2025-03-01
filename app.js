@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.text())
             .then(data => {
                 alert(data);
-                $('#addPlayerModal').modal('hide');
+                // Em vez de fechar o modal, atualizamos a lista de jogadores
+                viewPlayers(index);
             })
             .catch(error => console.error('Erro:', error));
         }
@@ -63,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            $('#confirmDeleteMatchModal').modal('hide');
-            fetchMatches(); // Atualiza a lista de partidas
+            // Não fechamos o modal; apenas atualizamos a lista de partidas
+            fetchMatches();
         })
         .catch(error => console.error('Erro:', error));
     });
@@ -112,7 +113,7 @@ function addPlayer(index) {
     // Limpa os campos do formulário
     document.querySelector('#playerName').value = '';
     document.querySelector('#playerPhone').value = '';
-    // Abre o modal para adicionar jogador
+    // Abre o modal para adicionar jogador (o modal permanece aberto após a ação)
     $('#addPlayerModal').modal('show');
 }
 
@@ -164,7 +165,7 @@ function viewPlayers(index) {
                 playerList.appendChild(li);
             });
         }
-        // Abre o modal de jogadores
+        // Abre (ou mantém) o modal de jogadores aberto
         $('#viewPlayersModal').modal('show');
     })
     .catch(error => console.error('Erro:', error));
@@ -177,7 +178,7 @@ function confirmPresence(matchIndex, playerIndex) {
     .then(response => response.text())
     .then(data => {
         alert(data);
-        // Atualiza a lista de jogadores para refletir a mudança
+        // Atualiza a lista de jogadores para refletir a mudança, sem fechar o modal
         viewPlayers(matchIndex);
     })
     .catch(error => console.error('Erro:', error));
@@ -191,7 +192,7 @@ function deletePlayer(matchIndex, playerIndex) {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            // Atualiza a lista de jogadores para refletir a remoção
+            // Atualiza a lista de jogadores para refletir a remoção, mantendo o modal aberto
             viewPlayers(matchIndex);
         })
         .catch(error => console.error('Erro:', error));
@@ -200,5 +201,6 @@ function deletePlayer(matchIndex, playerIndex) {
 
 function deleteMatch(index) {
     document.querySelector('#matchIndexToDelete').value = index;
+    // Exibe o modal de confirmação de exclusão, que permanecerá aberto após a ação
     $('#confirmDeleteMatchModal').modal('show');
 }
