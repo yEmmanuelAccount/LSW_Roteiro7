@@ -26,6 +26,48 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Erro:', error));
     });
+
+    // Evento de submit do formulário de adicionar jogador
+    document.querySelector('#addPlayerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const index = document.querySelector('#matchIndexForPlayer').value;
+        const playerName = document.querySelector('#playerName').value;
+        const playerPhone = document.querySelector('#playerPhone').value;
+
+        if (playerName && playerPhone) {
+            fetch(`http://localhost:3000/partidas/${index}/jogadores`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: playerName,
+                    telefone: playerPhone
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                $('#addPlayerModal').modal('hide');
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    });
+
+    // Evento de confirmação da exclusão de partida
+    document.querySelector('#confirmDeleteMatchButton').addEventListener('click', function() {
+        const index = document.querySelector('#matchIndexToDelete').value;
+        fetch(`http://localhost:3000/partidas/${index}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            $('#confirmDeleteMatchModal').modal('hide');
+            fetchMatches(); // Atualiza a lista de partidas
+        })
+        .catch(error => console.error('Erro:', error));
+    });
 });
 
 function fetchMatches() {
@@ -65,56 +107,87 @@ function fetchMatches() {
 }
 
 function addPlayer(index) {
-    const playerName = prompt('Digite o nome do jogador:');
-    const playerPhone = prompt('Digite o telefone do jogador:');
-    if (playerName && playerPhone) {
-        fetch(`http://localhost:3000/partidas/${index}/jogadores`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nome: playerName,
-                telefone: playerPhone
-            })
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-        })
-        .catch(error => console.error('Erro:', error));
-    } else {
-        alert('Nome e telefone são obrigatórios!');
-    }
+    // Define o índice da partida no input oculto do modal
+    document.querySelector('#matchIndexForPlayer').value = index;
+    // Limpa os campos do formulário
+    document.querySelector('#playerName').value = '';
+    document.querySelector('#playerPhone').value = '';
+    // Abre o modal para adicionar jogador
+    $('#addPlayerModal').modal('show');
 }
 
 function viewPlayers(index) {
     fetch(`http://localhost:3000/partidas/${index}/jogadores`)
     .then(response => response.json())
     .then(jogadores => {
+        const playerList = document.querySelector('#playerList');
+        playerList.innerHTML = ''; // Limpa a lista anterior
         if (jogadores.length === 0) {
-            alert('Nenhum jogador adicionado ainda.');
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = 'Nenhum jogador adicionado ainda.';
+            playerList.appendChild(li);
         } else {
-            let playerList = 'Jogadores:\n';
-            jogadores.forEach(jogador => {
-                playerList += `- ${jogador.nome} (${jogador.telefone})\n`;
+            jogadores.forEach((jogador, playerIndex) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `<span>${jogador.nome} (${jogador.telefone}) ${jogador.presenca ? '- Presente' : ''}</span>`;
+                const btnGroup = document.createElement('div');
+                // Botão verde para confirmar presença
+                const confirmBtn = document.createElement('button');
+                confirmBtn.className = 'btn btn-success btn-sm';
+                confirmBtn.textContent = 'Confirmar Presença';
+                confirmBtn.addEventListener('click', function() {
+                    confirmPresence(index, playerIndex);
+                });
+                // Botão vermelho para excluir jogador
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-sm ml-2';
+                deleteBtn.textContent = 'Excluir';
+                deleteBtn.addEventListener('click', function() {
+                    deletePlayer(index, playerIndex);
+                });
+                btnGroup.appendChild(confirmBtn);
+                btnGroup.appendChild(deleteBtn);
+                li.appendChild(btnGroup);
+                playerList.appendChild(li);
             });
-            alert(playerList);
         }
+        // Abre o modal de jogadores
+        $('#viewPlayersModal').modal('show');
     })
     .catch(error => console.error('Erro:', error));
 }
 
-function deleteMatch(index) {
-    if (confirm('Tem certeza que deseja excluir esta partida?')) {
-        fetch(`http://localhost:3000/partidas/${index}`, {
-            method: 'DELETE',
+function confirmPresence(matchIndex, playerIndex) {
+    fetch(`http://localhost:3000/partidas/${matchIndex}/jogadores/${playerIndex}/confirm`, {
+        method: 'PATCH'
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        // Atualiza a lista de jogadores
+        viewPlayers(matchIndex);
+    })
+    .catch(error => console.error('Erro:', error));
+}
+
+function deletePlayer(matchIndex, playerIndex) {
+    if (confirm('Tem certeza que deseja excluir este jogador?')) {
+        fetch(`http://localhost:3000/partidas/${matchIndex}/jogadores/${playerIndex}`, {
+            method: 'DELETE'
         })
         .then(response => response.text())
         .then(data => {
             alert(data);
-            fetchMatches(); // Atualiza a lista de partidas
+            // Atualiza a lista de jogadores
+            viewPlayers(matchIndex);
         })
         .catch(error => console.error('Erro:', error));
     }
+}
+
+function deleteMatch(index) {
+    document.querySelector('#matchIndexToDelete').value = index;
+    $('#confirmDeleteMatchModal').modal('show');
 }

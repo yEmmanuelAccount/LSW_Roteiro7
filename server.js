@@ -64,6 +64,40 @@ app.get('/partidas/:index/jogadores', (req, res) => {
     }
 });
 
+// Rota para confirmar presença do jogador
+app.patch('/partidas/:matchIndex/jogadores/:playerIndex/confirm', (req, res) => {
+    const matchIndex = req.params.matchIndex;
+    const playerIndex = req.params.playerIndex;
+    let partidas = [];
+    if (fs.existsSync(filePath)) {
+        partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+    if (partidas[matchIndex] && partidas[matchIndex].jogadores[playerIndex]) {
+        partidas[matchIndex].jogadores[playerIndex].presenca = true;
+        fs.writeFileSync(filePath, JSON.stringify(partidas, null, 2));
+        res.send('Presença confirmada!');
+    } else {
+        res.status(404).send('Partida ou jogador não encontrado');
+    }
+});
+
+// Rota para excluir jogador
+app.delete('/partidas/:matchIndex/jogadores/:playerIndex', (req, res) => {
+    const matchIndex = req.params.matchIndex;
+    const playerIndex = req.params.playerIndex;
+    let partidas = [];
+    if (fs.existsSync(filePath)) {
+        partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+    if (partidas[matchIndex] && partidas[matchIndex].jogadores[playerIndex]) {
+        partidas[matchIndex].jogadores.splice(playerIndex, 1);
+        fs.writeFileSync(filePath, JSON.stringify(partidas, null, 2));
+        res.send('Jogador excluído com sucesso!');
+    } else {
+        res.status(404).send('Partida ou jogador não encontrado');
+    }
+});
+
 // Rota para excluir uma partida
 app.delete('/partidas/:index', (req, res) => {
     const index = req.params.index;
