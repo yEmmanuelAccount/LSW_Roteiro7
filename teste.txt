@@ -1,4 +1,4 @@
-index.html
+# index.html
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,70 +41,7 @@ index.html
 </body>
 </html>
 
-server.js
-
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-app.post('/criarPartida', (req, res) => {
-    const filePath = path.join(__dirname, 'partidas.json');
-    const partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    partidas.push(req.body);
-    fs.writeFileSync(filePath, JSON.stringify(partidas, null, 2));
-    res.status(201).send('Partida criada com sucesso!');
-});
-
-app.get('/partidas', (req, res) => {
-    const filePath = path.join(__dirname, 'partidas.json');
-    if (fs.existsSync(filePath)) {
-        const partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        res.json(partidas);
-    } else {
-        res.json([]);
-    }
-});
-
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
-});
-
-style.css
-
-body {
-    background-color: #77797a;
-    color: black;
-}
-
-.form-control, .list-group {
-    background-color: #3e4143;
-    color: black;
-}
-
-#matchList {
-    width: 50%; /* Define uma largura */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    list-style: none; /* Remove os estilos padrão da lista */
-    padding: 0;
-  }
-
-partidas.json
-
-[
-  {
-    "titulo": "Jogo da Cobrinha",
-    "local": "",
-    "data": "2025-02-28",
-    "horario": "20:30"
-  }
-]
-
-app.js
+# app.js
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchMatches();
@@ -152,4 +89,69 @@ function fetchMatches() {
     .catch(error => console.error('Erro:', error));
 }
 
-Coloque um botão de "Detalhes" nas Partidas exibidas no index.html que abra outra página com as informações já exibidas. A nova página deve ter as informações já mostradas na página inicial e botões de "Adicionar Jogador", "Ver Presença" e "Excluir Partida"
+# server.js
+
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.post('/criarPartida', (req, res) => {
+    const filePath = path.join(__dirname, 'partidas.json');
+    const partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    partidas.push(req.body);
+    fs.writeFileSync(filePath, JSON.stringify(partidas, null, 2));
+    res.status(201).send('Partida criada com sucesso!');
+});
+
+app.get('/partidas', (req, res) => {
+    const filePath = path.join(__dirname, 'partidas.json');
+    if (fs.existsSync(filePath)) {
+        const partidas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        res.json(partidas);
+    } else {
+        res.json([]);
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+});
+
+# style.css
+
+body {
+    background-color: #77797a;
+    color: black;
+}
+
+.form-control, .list-group {
+    background-color: #3e4143;
+    color: black;
+}
+
+#matchList {
+    width: 50%; /* Define uma largura */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    list-style: none; /* Remove os estilos padrão da lista */
+    padding: 0;
+  }
+
+# partidas.json
+
+[
+  {
+    "titulo": "Jogo da Cobrinha",
+    "local": "",
+    "data": "2025-02-28",
+    "horario": "20:30"
+  }
+]
+
+# O que fazer
+
+Faça com que, quando o usuário clicar em uma partida já criada, expanda um campo com as opções de Adicionar Jogador, Ver Jogadores e Excluir Partida.

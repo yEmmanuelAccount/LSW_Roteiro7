@@ -3,5 +3,25 @@
     "cors": "^2.8.5",
     "corss": "^2.8.5",
     "express": "^4.21.2"
-  }
+  },
+  "name": "lws_roteiro7",
+  "version": "1.0.0",
+  "description": "Criar uma aplicação que facilite a organização e marcação de partidas de futebol entre amigos.",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yEmmanuelAccount/LWS_Roteiro7.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yEmmanuelAccount/LWS_Roteiro7/issues"
+  },
+  "homepage": "https://github.com/yEmmanuelAccount/LWS_Roteiro7#readme"
 }

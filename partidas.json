@@ -1,8 +1,29 @@
 [
   {
     "titulo": "Jogo da Cobrinha",
-    "local": "",
+    "local": "Campo Central",
     "data": "2025-02-28",
-    "horario": "20:30"
+    "horario": "20:30",
+    "jogadores": [
+      {
+        "nome": "João",
+        "telefone": "123456789"
+      },
+      {
+        "nome": "Maria",
+        "telefone": "987654321"
+      },
+      {
+        "nome": "José",
+        "telefone": "83 98646-1896"
+      }
+    ]
+  },
+  {
+    "titulo": "Jogo do Leão",
+    "local": "Arena Futuro",
+    "data": "2025-03-01",
+    "horario": "16:00",
+    "jogadores": []
   }
 ]
